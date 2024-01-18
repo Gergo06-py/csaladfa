@@ -1,0 +1,11 @@
+<form class="container" action="return false">
+  <ng-container *ngFor="let title of titles">
+    <ng-container *ngIf="title.key !== 'id'">
+      <div class="mb-3">
+        <label [for]="title.key" class="form-label">{{ title.name }}</label>
+        <input [(ngModel)]="newMember[title.key]" [name]="title.key" class="form-control" [type]="title.type" [id]="title.key" [required]="title.required">
+      </div>
+    </ng-container>
+  </ng-container>
+  <button type="submit" class="btn btn-primary" (click)="addMember()">Családtag felvétele</button>
+</form>

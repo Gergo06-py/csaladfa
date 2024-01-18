@@ -1,0 +1,29 @@
+<table class="table table-striped">
+  <thead>
+  <tr class="row vw-100">
+    <th class="col text-center border-start border-end" *ngFor="let title of titles">{{ title.name }}</th>
+    <th class="col text-center border-start border-end">Módosítás</th>
+    <th class="col text-center border-start border-end">Törlés</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row vw-100" *ngFor="let member of familyMembers">
+
+    <ng-container *ngFor="let title of titles">
+      <ng-container *ngIf="title.key === 'id'; else notID">
+        <td class="col text-center border-start border-end">{{ member[title.key] }}</td>
+      </ng-container>
+      <ng-template #notID>
+        <td class="col text-center border-start border-end"><input class="form-control"
+          [(ngModel)]="member[title.key]" [name]="title.key" [type]="title.type" [value]="member[title.key]"></td>
+      </ng-template>
+    </ng-container>
+    <td class="col text-center border-start border-end">
+      <button class="btn btn-warning">Módosít</button>
+    </td>
+    <td class="col text-center border-start border-end">
+      <button class="btn btn-danger">Töröl</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
