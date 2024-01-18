@@ -26,4 +26,12 @@ export class BaseService {
   postData(url: string, data: any) {
     return this.http.post(url, data);
   }
+
+  putData(url: string, data: any) {
+    return this.http.put(url, data);
+  }
+
+  deleteData(url: string) {
+    return this.http.delete(url);
+  }
 }

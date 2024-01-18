@@ -33,4 +33,19 @@ export class ListMembersComponent {
       this.familyMembers = data;
     });
   }
+
+  updateMember(member: any) {
+    console.log(member)
+    let url = this.baseUrl + '/update-member/' + member.id;
+    this.base.putData(url, member).subscribe((data: any) => {
+      this.getMembers();
+    });
+  }
+
+  deleteMember(member: any) {
+    let url = this.baseUrl + '/delete-member/' + member.id;
+    this.base.deleteData(url).subscribe((data: any) => {
+      this.getMembers();
+    });
+  }
 }
