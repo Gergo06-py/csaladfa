@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {BaseService} from "../base.service";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-list-members',
@@ -35,17 +36,34 @@ export class ListMembersComponent {
   }
 
   updateMember(member: any) {
-    console.log(member)
-    let url = this.baseUrl + '/update-member/' + member.id;
+    let memberID = member.id;
+    let url = this.baseUrl + '/update-member/' + memberID;
+    delete member['_id'];
+    delete member['id'];
     this.base.putData(url, member).subscribe((data: any) => {
+      this.confirmationAnimation(memberID).then(() => {
+        this.getMembers();
+      });
+    });
+  }
+
+  deleteMember(id: number) {
+    let url = this.baseUrl + '/delete-member/' + id;
+    this.base.deleteData(url).subscribe((data: any) => {
       this.getMembers();
     });
   }
 
-  deleteMember(member: any) {
-    let url = this.baseUrl + '/delete-member/' + member.id;
-    this.base.deleteData(url).subscribe((data: any) => {
-      this.getMembers();
-    });
+  confirmationAnimation(id: string) {
+    let button = document.getElementById('member-' + id) as HTMLButtonElement;
+    button.classList.remove("btn-warning");
+    button.classList.add("btn-success");
+    button.textContent = "Módosítva";
+    return new Promise((resolve) => setTimeout(() => {
+      button.classList.remove("btn-success");
+      button.classList.add("btn-warning");
+      button.textContent = "Módosít";
+      return resolve;
+    }, 1000));
   }
 }

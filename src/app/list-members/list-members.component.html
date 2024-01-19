@@ -19,10 +19,10 @@
       </ng-template>
     </ng-container>
     <td class="col text-center border-start border-end">
-      <button class="btn btn-warning" (click)="updateMember(member)">Módosít</button>
+      <button class="btn btn-warning" (click)="updateMember(member)" [id]="'member-' + member.id">Módosít</button>
     </td>
     <td class="col text-center border-start border-end">
-      <button class="btn btn-danger" (click)="deleteMember(member)">Töröl</button>
+      <button class="btn btn-danger" (click)="deleteMember(member.id)">Töröl</button>
     </td>
   </tr>
   </tbody>
